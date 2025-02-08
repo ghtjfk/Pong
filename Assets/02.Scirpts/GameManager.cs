@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
     [Header("Score UI")]
     public Text player1Text;
     public Text player2Text;
+    public Text timerText;
+
+    public float timer;
+
+    public float fiveSecCounter;
 
     private int player1Score;
     private int player2Score;
@@ -42,5 +47,18 @@ public class GameManager : MonoBehaviour
         ball.GetComponent<Ball>().Reset();
         player1Paddle.GetComponent<Paddle>().Reset();
         player2Paddle.GetComponent<Paddle>().Reset();
+    }
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+        timerText.text = timer.ToString("F2");
+
+        fiveSecCounter += Time.deltaTime;
+        if (fiveSecCounter > 5f)
+        {
+            ball.GetComponent<Ball>().BoostSpeed();
+            fiveSecCounter = 0f;
+        }
     }
 }

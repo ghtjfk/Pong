@@ -29,4 +29,10 @@ public class Ball : MonoBehaviour
         transform.position = startPosition;
         Init();
     }
+
+    public void BoostSpeed()
+    {
+        moveSpeed += 1;
+        rb.velocity = new Vector2(rb.velocity.x + moveSpeed, rb.velocity.y + moveSpeed);
+    }
 }
