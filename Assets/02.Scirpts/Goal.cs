@@ -8,13 +8,16 @@ public class Goal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isPlayer1Goal)
+        if (collision.CompareTag("Ball"))
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().Player2_Scored();
-        }
-        else
-        {
-            GameObject.Find("GameManager").GetComponent<GameManager>().Player1_Scored();
+            if (isPlayer1Goal)
+            {
+                GameObject.Find("GameManager").GetComponent<GameManager>().Player2_Scored();
+            }
+            else
+            {
+                GameObject.Find("GameManager").GetComponent<GameManager>().Player1_Scored();
+            }
         }
     }
 }
