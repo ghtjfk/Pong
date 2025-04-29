@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public Text timerText;
 
     public float timer;
+    private bool isGameOver = false;
 
     public float fiveSecCounter;
 
@@ -49,16 +50,43 @@ public class GameManager : MonoBehaviour
         player2Paddle.GetComponent<Paddle>().Reset();
     }
 
+    private void GameOver()
+    {
+        isGameOver = true;
+
+        // 공 멈추기
+        ball.SetActive(false);
+
+        // 게임 결과 출력
+        if (player1Score > player2Score)
+        {
+            timerText.text = "Player 1 Wins!";
+        }
+        else if (player2Score > player1Score)
+        {
+            timerText.text = "Player 2 Wins!";
+        }
+        else
+        {
+            timerText.text = "Draw!";
+        }
+    }
+
     private void Update()
     {
-        timer += Time.deltaTime;
+        timer -= Time.deltaTime;
         timerText.text = timer.ToString("F2");
 
         fiveSecCounter += Time.deltaTime;
-        if (fiveSecCounter > 5f)
+        if (fiveSecCounter > 20f)
         {
             ball.GetComponent<Ball>().BoostSpeed();
             fiveSecCounter = 0f;
+        }
+
+        if(timer <= 0)
+        {
+            GameOver();
         }
     }
 }
